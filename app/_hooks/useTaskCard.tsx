@@ -10,13 +10,15 @@ const useTaskCard = (columnTitle: string) => {
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
     const dispatch = useDispatch();
+    const { tasks, searchTerm } = useSelector((state: RootState) => state.tasks);
 
-    const tasks = useSelector((state: RootState) => state.tasks.tasks);
-    const filteredTasks = useMemo(
-        () => tasks.filter((task) => task.status === columnTitle),
-        [tasks, columnTitle]
-    );
-
+    const filteredTasks = useMemo(() => {
+        return tasks
+            .filter((task) => task.status === columnTitle)
+            .filter((task) =>
+                task.title.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+    }, [tasks, columnTitle, searchTerm]);
     const handleDelete = () => {
         if (taskToDelete) {
             dispatch(deleteTask(taskToDelete.id));

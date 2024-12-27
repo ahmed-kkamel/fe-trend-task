@@ -7,10 +7,12 @@ import {
 
 type TasksState = {
   tasks: Task[];
+  searchTerm: string;
 };
 
 const initialState: TasksState = {
   tasks: loadTasksFromLocalStorage(),
+  searchTerm: "",
 };
 
 const tasksSlice = createSlice({
@@ -32,10 +34,14 @@ const tasksSlice = createSlice({
       state.tasks = state.tasks.filter((task) => task.id !== action.payload);
       saveTasksToLocalStorage(state.tasks);
     },
+    setSearchTerm: (state, action: PayloadAction<string>) => {
+      state.searchTerm = action.payload;
+    },
   },
 });
 
-export const { addTask, editTask, deleteTask } = tasksSlice.actions;
+export const { addTask, editTask, deleteTask, setSearchTerm } =
+  tasksSlice.actions;
 
 export const store = configureStore({
   reducer: {
