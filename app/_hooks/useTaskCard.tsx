@@ -34,6 +34,11 @@ const useTaskCard = (columnTitle: string) => {
         setTaskToDelete(task);
         setIsConfirmOpen(true);
     };
+
+    const handleMoveTask = (task: Task, newStatus: string) => {
+        dispatch(editTask({ ...task, status: newStatus }));
+    };
+
     return {
         isEditing,
         editingTask,
@@ -45,6 +50,7 @@ const useTaskCard = (columnTitle: string) => {
         setIsConfirmOpen,
         handleDelete,
         handleEdit,
+        handleMoveTask,
         confirmDelete,
         dispatch,
     };

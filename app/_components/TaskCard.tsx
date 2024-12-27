@@ -1,8 +1,10 @@
+import React from "react";
 import { editTask } from "../_store/store";
 import AddTaskPopup from "./AddTaskPopup";
 import ConfirmationPopup from "./ConfirmationPopup";
 import TaskItem from "./TaskItem";
 import useTaskCard from "../_hooks/useTaskCard";
+import { columns } from "../_const/columns";
 
 interface TaskCardProps {
     column: { title: string };
@@ -19,9 +21,11 @@ const TaskCard: React.FC<TaskCardProps> = ({ column }) => {
         setIsConfirmOpen,
         handleDelete,
         handleEdit,
+        handleMoveTask,
         confirmDelete,
         dispatch,
     } = useTaskCard(column.title);
+
 
     return (
         <div className="flex flex-col gap-4">
@@ -31,6 +35,9 @@ const TaskCard: React.FC<TaskCardProps> = ({ column }) => {
                     task={task}
                     onEdit={handleEdit}
                     onDelete={confirmDelete}
+                    onMoveTask={handleMoveTask}
+                    columnTitle={column.title}
+                    allColumns={columns.map((col) => col.title)}
                 />
             ))}
 
