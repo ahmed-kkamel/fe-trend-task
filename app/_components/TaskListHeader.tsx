@@ -1,9 +1,20 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addTask } from "../_store/store";
+import AddTaskPopup from "./AddTaskPopup";
 
-// Static data for navigation items
 const navItems = ["Tasks List", "Calendar", "Dashboard", "Progress", "Forms", "More"];
 
 const TaskListHeader: React.FC = () => {
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const dispatch = useDispatch();
+
+    const handleSave = (title: string, description: string, status: string) => {
+        const newTask = { id: Date.now(), title, description, status };
+        dispatch(addTask(newTask));
+        setIsPopupOpen(false);
+    };
     return (
         <div className="flex flex-col md:flex-row justify-between items-center bg-[#FFFFFF] p-4 border-b border-[#E5E7EB] shadow-sm">
             {/* Left Section */}
@@ -52,9 +63,12 @@ const TaskListHeader: React.FC = () => {
                 </div>
 
                 {/* Add Button */}
-                <button className="p-2 bg-[#F3F4F6] rounded-md hover:bg-[#E5E7EB]">
+                <button className="p-2 bg-[#F3F4F6] rounded-md hover:bg-[#E5E7EB]" onClick={() => setIsPopupOpen(true)}
+                >
                     ➕ {/* Add icon */}
                 </button>
+                <AddTaskPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} onSave={handleSave} />
+
             </div>
         </div>
     );
