@@ -14,7 +14,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ dropdownRef, dropdownOption
     return (
         <div
             ref={dropdownRef}
-            className="absolute right-0 mt-2 bg-white border rounded shadow-lg z-10 min-w-[8rem]"
+            className="absolute right-0 bg-white border rounded shadow-lg z-10 min-w-48"
         >
             {dropdownOptions.map((option) => (
                 <button

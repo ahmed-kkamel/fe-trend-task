@@ -13,18 +13,24 @@ const TaskBoardHeader: React.FC<TaskBoardHeaderProps> = ({ column }) => {
     const taskCount = tasks.filter(task => task.status === column.title).length;
 
     return (
-        <div className="flex gap-3 items-center" role="region" aria-labelledby={`${column.title}-header`}>
+        <div
+            className="flex gap-3 items-center p-3 rounded-lg bg-gray-100 shadow-sm"
+            role="region"
+            aria-labelledby={`${column.title}-header`}
+            aria-live="polite"
+        >
             <h2
                 id={`${column.title}-header`}
-                className="text-xl font-bold"
+                className="text-xl font-semibold text-gray-800"
                 tabIndex={0}
             >
                 {column.title}
             </h2>
             <span
-                className="text-xs px-2.5 py-1 rounded-full"
+                className="text-xs px-2.5 font-semibold py-1 rounded-full"
                 style={{ backgroundColor: column.bgColor, color: column.textColor }}
                 aria-label={`Task count for ${column.title}`}
+                role="status"
             >
                 {taskCount}
             </span>

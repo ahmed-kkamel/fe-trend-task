@@ -43,7 +43,7 @@ const TaskListHeader: React.FC = React.memo(() => {
         <header className="flex flex-col lg:flex-row gap-4 justify-between items-center bg-white p-4 border-b border-gray-200 shadow-sm">
             <div className="flex flex-col md:flex-row items-center gap-4 md:gap-10">
                 <div className="flex items-center gap-2">
-                    <h2 className="text-2xl font-bold text-[#2B1F33]">Task Boards</h2>
+                    <h2 className="text-base lg:text-2xl font-bold text-[#2B1F33]">Task Boards</h2>
                     <button
                         aria-label="Edit"
                         className="text-gray-600 hover:text-gray-700 focus:outline-none"
@@ -51,11 +51,11 @@ const TaskListHeader: React.FC = React.memo(() => {
                         ✎
                     </button>
                 </div>
-                <nav aria-label="Task Navigation" className="flex gap-4 text-sm text-gray-600">
+                <nav aria-label="Task Navigation" className="flex gap-4 text-xs md:text-sm text-gray-600">
                     {navLinks}
                 </nav>
             </div>
-            <div className="flex items-center gap-4 mt-4 md:mt-0">
+            <div className="flex items-center gap-4">
                 <SearchInput value={searchTerm} onChange={handleSearch} />
                 <AddTaskButton onClick={() => setIsPopupOpen(true)} />
                 <AddTaskPopup

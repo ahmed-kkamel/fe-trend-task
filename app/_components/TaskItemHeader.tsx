@@ -13,17 +13,24 @@ const TaskItemHeader: React.FC<TaskItemHeaderProps> = ({
 }) => {
     return (
         <div className="flex justify-between items-center">
-            <h3 className="font-medium text-gray-800">{taskTitle}</h3>
+            <h3 className="font-medium text-gray-800 whitespace-normal break-words w-10/12" tabIndex={0}>
+                {taskTitle}
+            </h3>
             <div className="relative">
-                <Image
-                    src="/more.svg"
-                    width={24}
-                    height={24}
-                    alt="More options"
-                    className="cursor-pointer"
+                <button
                     onClick={toggleDropdown}
                     aria-expanded={isDropdownOpen}
-                />
+                    aria-label="More options"
+                    className="focus:outline-none"
+                >
+                    <Image
+                        src="/more.svg"
+                        width={24}
+                        height={24}
+                        alt="More options"
+                        className="cursor-pointer"
+                    />
+                </button>
                 {isDropdownOpen && (
                     <DropdownMenu
                         dropdownRef={dropdownRef}

@@ -7,7 +7,7 @@ const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({ isOpen, taskToDel
     return (
         <div className="fixed inset-0 bg-[#606C80] bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm">
             <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-                <p className="text-lg text-gray-800">
+                <p className="text-lg text-gray-800 break-words">
                     Are you sure you want to delete the task: <span className="font-bold">{taskToDelete.title}</span>?
                 </p>
                 <div className="flex justify-end gap-4 mt-6">

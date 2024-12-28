@@ -8,7 +8,11 @@ type ActionButtonProps = {
 
 const ActionButton: React.FC<ActionButtonProps> = ({ onClick, label, color }) => {
     return (
-        <button onClick={onClick} className={`text-${color}-500 hover:underline`}>
+        <button
+            onClick={onClick}
+            className={`text-${color}-500 hover:text-${color}-700 focus:outline-none`}
+            aria-label={label}
+        >
             {label}
         </button>
     );

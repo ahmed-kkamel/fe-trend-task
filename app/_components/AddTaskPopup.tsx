@@ -66,43 +66,58 @@ const AddTaskPopup: React.FC<AddTaskPopupProps> = ({ isOpen, onClose, onSave }) 
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-[#606C80] bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm">
-            <div className="bg-white rounded-lg p-6 w-96 shadow-lg">
-                <h2 className="text-lg font-bold mb-4 text-[#2B1F33]">Add New Task</h2>
-                <form className="flex flex-col gap-4">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-xl p-6 w-full max-w-lg shadow-lg">
+                <h2 className="text-base md:text-2xl font-semibold mb-6 text-gray-800">Create a New Task</h2>
+                <form className="flex flex-col gap-6">
                     <div>
-                        <label htmlFor="title" className="text-sm font-medium text-[#2B1F33]">
+                        <label
+                            htmlFor="title"
+                            className="block text-xs md:text-sm font-medium text-gray-700"
+                        >
                             Title
                         </label>
                         <input
                             id="title"
                             type="text"
-                            className={`w-full p-2 border ${errors.title ? 'border-red-500' : 'border-gray-300'} rounded-md mt-1`}
+                            className={`w-full mt-2 p-3 border ${errors.title ? "border-red-500" : "border-gray-300"
+                                } rounded-lg shadow-sm focus:outline-none`}
                             value={formData.title}
                             onChange={handleInputChange}
                         />
-                        {errors.title && <small className="text-red-500">{errors.title}</small>}
+                        {errors.title && (
+                            <small className="text-red-500 text-xs">{errors.title}</small>
+                        )}
                     </div>
                     <div>
-                        <label htmlFor="description" className="text-sm font-medium text-[#2B1F33]">
+                        <label
+                            htmlFor="description"
+                            className="block text-xs md:text-sm font-medium text-gray-700"
+                        >
                             Description
                         </label>
                         <textarea
                             id="description"
-                            className={`w-full p-2 border ${errors.description ? 'border-red-500' : 'border-gray-300'} rounded-md mt-1`}
-                            rows={3}
+                            className={`w-full mt-2 p-3 border ${errors.description ? "border-red-500" : "border-gray-300"
+                                } rounded-lg shadow-sm focus:outline-none`}
+                            rows={4}
                             value={formData.description}
                             onChange={handleInputChange}
                         />
-                        {errors.description && <small className="text-red-500">{errors.description}</small>}
+                        {errors.description && (
+                            <small className="text-red-500 text-xs">{errors.description}</small>
+                        )}
                     </div>
                     <div>
-                        <label htmlFor="status" className="text-sm font-medium text-[#2B1F33]">
+                        <label
+                            htmlFor="status"
+                            className="block text-xs md:text-sm font-medium text-gray-700"
+                        >
                             Status
                         </label>
                         <select
                             id="status"
-                            className="w-full p-2 border border-gray-300 rounded-md mt-1"
+                            className="w-full mt-2 p-3 text-xs md:text-sm border border-gray-300 rounded-lg shadow-sm focus:outline-none px-2"
                             value={formData.status}
                             onChange={handleInputChange}
                         >
@@ -112,18 +127,18 @@ const AddTaskPopup: React.FC<AddTaskPopupProps> = ({ isOpen, onClose, onSave }) 
                         </select>
                     </div>
                 </form>
-                <div className="flex justify-end gap-4 mt-6">
+                <div className="flex justify-end gap-4 mt-8">
                     <button
-                        className="px-4 py-2 bg-gray-200 rounded-md text-[#2B1F33] hover:bg-gray-300"
+                        className="px-5 py-2 text-sm font-medium text-gray-600 bg-gray-200 rounded-lg hover:bg-gray-300"
                         onClick={handleClose}
                     >
                         Cancel
                     </button>
                     <button
-                        className="px-4 py-2 bg-[#3B82F6] text-white rounded-md hover:bg-[#2563EB]"
+                        className="px-5 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700"
                         onClick={handleSave}
                     >
-                        Save
+                        Save Task
                     </button>
                 </div>
             </div>
