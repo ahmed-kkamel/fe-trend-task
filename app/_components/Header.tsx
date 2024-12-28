@@ -1,4 +1,8 @@
 
+// Note: The h1 tag should be between 20 to 70 characters for optimal SEO. 
+// This ensures that the title is descriptive enough for search engines and users, 
+// but for design matters i din't make it 20:70 chars.
+
 const Header: React.FC = () => {
     return (
         <header className="bg-indigo-600 p-4 text-center flex justify-between items-center shadow-lg text-white text-3xl font-semibold">

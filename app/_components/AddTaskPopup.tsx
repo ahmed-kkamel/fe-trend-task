@@ -18,18 +18,6 @@ const AddTaskPopup: React.FC<Props> = ({ isOpen, onClose, onSave, taskToEdit }) 
         description: "",
     });
 
-    useEffect(() => {
-        if (taskToEdit) {
-            setFormData({
-                title: taskToEdit.title,
-                description: taskToEdit.description,
-                status: taskToEdit.status,
-            });
-        } else {
-            resetForm();
-        }
-    }, [taskToEdit]);
-
     const resetForm = useCallback(() => {
         setFormData({
             title: "",
@@ -79,6 +67,18 @@ const AddTaskPopup: React.FC<Props> = ({ isOpen, onClose, onSave, taskToEdit }) 
         resetForm();
         onClose();
     }, [resetForm, onClose]);
+
+    useEffect(() => {
+        if (taskToEdit) {
+            setFormData({
+                title: taskToEdit.title,
+                description: taskToEdit.description,
+                status: taskToEdit.status,
+            });
+        } else {
+            resetForm();
+        }
+    }, [taskToEdit, resetForm]);
 
     if (!isOpen) return null;
 

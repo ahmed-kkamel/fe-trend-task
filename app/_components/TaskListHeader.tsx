@@ -67,5 +67,6 @@ const TaskListHeader: React.FC = React.memo(() => {
         </header>
     );
 });
+TaskListHeader.displayName = "TaskListHeader";
 
 export default TaskListHeader;
