@@ -49,7 +49,7 @@ const AddTaskPopup: React.FC<Props> = ({ isOpen, onClose, onSave, taskToEdit }) 
     );
 
     const handleSave = useCallback(() => {
-        const newErrors: any = {};
+        const newErrors: { [key: string]: string } = {};
         if (!formData.title) newErrors.title = "Title is required.";
         if (!formData.description) newErrors.description = "Description is required.";
 
