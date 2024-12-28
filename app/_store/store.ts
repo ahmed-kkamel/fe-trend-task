@@ -1,15 +1,5 @@
-/**
- * Note: For small-scale applications like this, using the Context API might be a simpler and more appropriate choice.
- * The Context API provides a straightforward way to manage state without the need for additional libraries like Redux.
- * However, Redux is used here to demonstrate a more scalable state management solution that can handle more complex scenarios.
- */
-
 import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Task } from "../_types/task";
-import {
-  loadTasksFromLocalStorage,
-  saveTasksToLocalStorage,
-} from "../_utils/localStorageUtils";
 
 type TasksState = {
   tasks: Task[];
@@ -17,7 +7,7 @@ type TasksState = {
 };
 
 const initialState: TasksState = {
-  tasks: loadTasksFromLocalStorage(),
+  tasks: [], // Leave empty initially to avoid mismatch
   searchTerm: "",
 };
 
@@ -25,20 +15,20 @@ const tasksSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
+    setTasks: (state, action: PayloadAction<Task[]>) => {
+      state.tasks = action.payload;
+    },
     addTask: (state, action: PayloadAction<Task>) => {
       state.tasks.push(action.payload);
-      saveTasksToLocalStorage(state.tasks);
     },
     editTask: (state, action: PayloadAction<Task>) => {
       const index = state.tasks.findIndex((t) => t.id === action.payload.id);
       if (index >= 0) {
         state.tasks[index] = action.payload;
-        saveTasksToLocalStorage(state.tasks);
       }
     },
-    deleteTask: (state, action: PayloadAction<number>) => {
+    deleteTask: (state, action: PayloadAction<string>) => {
       state.tasks = state.tasks.filter((task) => task.id !== action.payload);
-      saveTasksToLocalStorage(state.tasks);
     },
     setSearchTerm: (state, action: PayloadAction<string>) => {
       state.searchTerm = action.payload;
@@ -46,7 +36,7 @@ const tasksSlice = createSlice({
   },
 });
 
-export const { addTask, editTask, deleteTask, setSearchTerm } =
+export const { setTasks, addTask, editTask, deleteTask, setSearchTerm } =
   tasksSlice.actions;
 
 export const store = configureStore({

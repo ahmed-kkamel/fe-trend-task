@@ -1,30 +1,49 @@
-"use client";
-import React, { useState, useCallback, useMemo } from "react";
-import { addTask, RootState } from "../_store/store";
-import AddTaskPopup from "./AddTaskPopup";
+import React, { useState, useCallback, useMemo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchTerm } from "../_store/store";
+import { addTask, RootState, setSearchTerm, setTasks } from "../_store/store";
+import { v4 as uuidv4 } from "uuid";
 import { navItems } from "../_const/navItems";
 import NavItem from "./NavItem";
 import SearchInput from "./SearchInput";
 import AddTaskButton from "./AddTaskButton";
-
+import AddTaskPopup from "./AddTaskPopup";
+import { getFromLocalStorage, saveToLocalStorage } from "../_utils/localStorageUtils";
 
 const TaskListHeader: React.FC = React.memo(() => {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const dispatch = useDispatch();
-    const searchTerm = useSelector((state: RootState) => state.tasks.searchTerm);
+    const { searchTerm, tasks } = useSelector((state: RootState) => state.tasks);
+
+    // Load tasks and searchTerm from localStorage on mount
+    useEffect(() => {
+        const savedTasks = getFromLocalStorage("tasks");
+        const savedSearchTerm = getFromLocalStorage("searchTerm");
+
+        if (savedTasks) {
+            dispatch(setTasks(savedTasks));
+        }
+        if (savedSearchTerm) {
+            dispatch(setSearchTerm(savedSearchTerm));
+        }
+    }, [dispatch]);
+
+    // Save tasks to localStorage whenever tasks state changes
+    useEffect(() => {
+        saveToLocalStorage("tasks", tasks);
+    }, [tasks]);
 
     const handleSearch = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
-            dispatch(setSearchTerm(e.target.value));
+            const value = e.target.value;
+            dispatch(setSearchTerm(value));
+            saveToLocalStorage("searchTerm", value);
         },
         [dispatch]
     );
 
     const handleSave = useCallback(
         (title: string, description: string, status: string) => {
-            const newTask = { id: Date.now(), title, description, status };
+            const newTask = { id: uuidv4(), title, description, status };
             dispatch(addTask(newTask));
             setIsPopupOpen(false);
         },
@@ -33,9 +52,7 @@ const TaskListHeader: React.FC = React.memo(() => {
 
     const navLinks = useMemo(
         () =>
-            navItems.map((item, index) => (
-                <NavItem key={index} item={item} />
-            )),
+            navItems.map((item, index) => <NavItem key={index} item={item} />),
         []
     );
 
@@ -67,6 +84,7 @@ const TaskListHeader: React.FC = React.memo(() => {
         </header>
     );
 });
+
 TaskListHeader.displayName = "TaskListHeader";
 
 export default TaskListHeader;

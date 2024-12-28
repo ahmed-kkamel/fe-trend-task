@@ -1,10 +1,10 @@
-import { Task } from "../_types/task";
-
-export const loadTasksFromLocalStorage = (): Task[] => {
-  const storedTasks = localStorage.getItem("tasks");
-  return storedTasks ? JSON.parse(storedTasks) : [];
+export const getFromLocalStorage = (key: string) => {
+  if (typeof window === "undefined") return null;
+  const storedValue = localStorage.getItem(key);
+  return storedValue ? JSON.parse(storedValue) : null;
 };
 
-export const saveTasksToLocalStorage = (tasks: Task[]): void => {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+export const saveToLocalStorage = (key: string, value: unknown) => {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(key, JSON.stringify(value));
 };
