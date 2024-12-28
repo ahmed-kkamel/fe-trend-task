@@ -7,7 +7,7 @@ const Sidebar: React.FC = () => {
     return (
         <aside className="fixed top-0 left-0 h-full w-1/4 bg-white text-gray-800 pt-6 transform -translate-x-full md:translate-x-0 transition-transform duration-300 flex flex-col gap-8 shadow-lg">
             <div className="flex items-center justify-center pb-6">
-                <p className="text-xl md:text-3xl font-semibold text-indigo-600">Trend FE Task App</p>
+                <p className="text-xl md:text-3xl font-semibold text-indigo-600">Trend FE Task</p>
             </div>
             <nav>
                 <ul className="px-6 text-lg flex flex-col gap-6">
