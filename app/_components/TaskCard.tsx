@@ -1,14 +1,10 @@
-import React from "react";
-import { editTask } from "../_store/store";
 import AddTaskPopup from "./AddTaskPopup";
 import ConfirmationPopup from "./ConfirmationPopup";
 import TaskItem from "./TaskItem";
 import useTaskCard from "../_hooks/useTaskCard";
+import { editTask } from "../_store/store";
 import { columns } from "../_const/columns";
-
-interface TaskCardProps {
-    column: { title: string };
-}
+import { TaskCardProps } from "../_types/TaskCardProps";
 
 const TaskCard: React.FC<TaskCardProps> = ({ column }) => {
     const {

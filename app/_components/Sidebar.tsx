@@ -1,29 +1,25 @@
+
 import React from 'react';
-
-interface SidebarItem {
-    id: number;
-    label: string;
-    link: string;
-}
-
-const sidebarItems: SidebarItem[] = [
-    { id: 1, label: "Home", link: "/" },
-    { id: 2, label: "Tasks", link: "/tasks" },
-    { id: 3, label: "Settings", link: "/settings" },
-];
+import { sidebarItems } from '../_const/sidebarItems';
 
 const Sidebar: React.FC = () => {
+    const selectedItem = 2;
     return (
-        <aside className="fixed top-0 left-0 h-full w-3/4 md:w-1/4 lg:w-1/5 bg-[#FFFFFF] text-[#2B1F33] pt-4 transform -translate-x-full md:translate-x-0 transition-transform duration-300  flex flex-col gap-12 shadow-md">
-            <h2 className="text-base md:text-2xl font-medium md:font-bold pb-4 px-4 ">Task App</h2>
+        <aside className="fixed top-0 left-0 h-full w-1/4 bg-white text-gray-800 pt-6 transform -translate-x-full md:translate-x-0 transition-transform duration-300 flex flex-col gap-8 shadow-lg">
+            <div className="flex items-center justify-center pb-6">
+                <p className="text-xl md:text-3xl font-semibold text-indigo-600">Trend FE Task App</p>
+            </div>
             <nav>
-                <ul className="px-4 text-lg flex flex-col gap-4">
+                <ul className="px-6 text-lg flex flex-col gap-6">
                     {sidebarItems.map((item) => (
                         <li
                             key={item.id}
-                            className="hover:bg-[#F7F7F7] py-3 cursor-pointer"
+                            className={`py-3 px-4 rounded-lg cursor-pointer transition-colors duration-200 ${item.id === selectedItem
+                                ? 'bg-indigo-100 text-indigo-600'
+                                : 'hover:bg-indigo-100 hover:text-indigo-600'
+                                }`}
                         >
-                            <a href={item.link}>{item.label}</a>
+                            {item.label}
                         </li>
                     ))}
                 </ul>

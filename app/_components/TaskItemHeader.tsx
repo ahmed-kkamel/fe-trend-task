@@ -1,15 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 import DropdownMenu from './DropdownMenu';
+import { TaskItemHeaderProps } from '../_types/TaskItemHeaderProps';
 
-type TaskItemHeaderProps = {
-    taskTitle: string;
-    isDropdownOpen: boolean;
-    toggleDropdown: () => void;
-    dropdownRef: React.RefObject<HTMLDivElement | null>;
-    dropdownOptions: string[];
-    handleMoveTask: (option: string) => void;
-};
 const TaskItemHeader: React.FC<TaskItemHeaderProps> = ({
     taskTitle,
     isDropdownOpen,

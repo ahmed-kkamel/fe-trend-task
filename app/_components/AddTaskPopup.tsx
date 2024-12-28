@@ -1,27 +1,72 @@
-import React, { useState } from "react";
-
-interface AddTaskPopupProps {
-    isOpen: boolean;
-    onClose: () => void;
-    onSave: (title: string, description: string, status: string) => void;
-}
+import React, { useState, useCallback } from "react";
+import { AddTaskPopupProps } from "../_types/AddTaskPopupProps";
 
 const AddTaskPopup: React.FC<AddTaskPopupProps> = ({ isOpen, onClose, onSave }) => {
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [status, setStatus] = useState("To Do");
+    const [formData, setFormData] = useState({
+        title: "",
+        description: "",
+        status: "To Do",
+    });
 
-    const handleSave = () => {
-        if (title && description) {
-            onSave(title, description, status);
-            onClose(); // Close the popup after saving
+    const [errors, setErrors] = useState<{ [key: string]: string }>({
+        title: "",
+        description: "",
+    });
+
+    const resetForm = useCallback(() => {
+        setFormData({
+            title: "",
+            description: "",
+            status: "To Do",
+        });
+        setErrors({
+            title: "",
+            description: "",
+        });
+    }, []);
+
+    const handleInputChange = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+            const { id, value } = e.target;
+            setFormData((prev) => ({
+                ...prev,
+                [id]: value,
+            }));
+
+            if (value && errors[id]) {
+                setErrors((prevErrors) => ({
+                    ...prevErrors,
+                    [id]: "",
+                }));
+            }
+        },
+        [errors]
+    );
+
+    const handleSave = useCallback(() => {
+        const newErrors: any = {};
+        if (!formData.title) newErrors.title = "Title is required.";
+        if (!formData.description) newErrors.description = "Description is required.";
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
         }
-    };
+
+        onSave(formData.title, formData.description, formData.status);
+        resetForm();
+        onClose();
+    }, [formData, onSave, resetForm, onClose]);
+
+    const handleClose = useCallback(() => {
+        resetForm();
+        onClose();
+    }, [resetForm, onClose]);
 
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed inset-0 bg-[#606C80] bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm">
             <div className="bg-white rounded-lg p-6 w-96 shadow-lg">
                 <h2 className="text-lg font-bold mb-4 text-[#2B1F33]">Add New Task</h2>
                 <form className="flex flex-col gap-4">
@@ -32,25 +77,24 @@ const AddTaskPopup: React.FC<AddTaskPopupProps> = ({ isOpen, onClose, onSave }) 
                         <input
                             id="title"
                             type="text"
-                            className="w-full p-2 border border-gray-300 rounded-md mt-1"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
+                            className={`w-full p-2 border ${errors.title ? 'border-red-500' : 'border-gray-300'} rounded-md mt-1`}
+                            value={formData.title}
+                            onChange={handleInputChange}
                         />
+                        {errors.title && <small className="text-red-500">{errors.title}</small>}
                     </div>
                     <div>
-                        <label
-                            htmlFor="description"
-                            className="text-sm font-medium text-[#2B1F33]"
-                        >
+                        <label htmlFor="description" className="text-sm font-medium text-[#2B1F33]">
                             Description
                         </label>
                         <textarea
                             id="description"
-                            className="w-full p-2 border border-gray-300 rounded-md mt-1"
+                            className={`w-full p-2 border ${errors.description ? 'border-red-500' : 'border-gray-300'} rounded-md mt-1`}
                             rows={3}
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
+                            value={formData.description}
+                            onChange={handleInputChange}
                         />
+                        {errors.description && <small className="text-red-500">{errors.description}</small>}
                     </div>
                     <div>
                         <label htmlFor="status" className="text-sm font-medium text-[#2B1F33]">
@@ -59,8 +103,8 @@ const AddTaskPopup: React.FC<AddTaskPopupProps> = ({ isOpen, onClose, onSave }) 
                         <select
                             id="status"
                             className="w-full p-2 border border-gray-300 rounded-md mt-1"
-                            value={status}
-                            onChange={(e) => setStatus(e.target.value)}
+                            value={formData.status}
+                            onChange={handleInputChange}
                         >
                             <option value="To Do">To Do</option>
                             <option value="In Progress">In Progress</option>
@@ -71,7 +115,7 @@ const AddTaskPopup: React.FC<AddTaskPopupProps> = ({ isOpen, onClose, onSave }) 
                 <div className="flex justify-end gap-4 mt-6">
                     <button
                         className="px-4 py-2 bg-gray-200 rounded-md text-[#2B1F33] hover:bg-gray-300"
-                        onClick={onClose}
+                        onClick={handleClose}
                     >
                         Cancel
                     </button>

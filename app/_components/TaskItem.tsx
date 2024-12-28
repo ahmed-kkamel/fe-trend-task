@@ -1,17 +1,9 @@
 import React from "react";
-import { Task } from "../_types/task";
 import ActionButton from "./ActionButton";
 import TaskItemHeader from "./TaskItemHeader";
 import useTaskItem from "../_hooks/useTaskItem";
+import { TaskItemProps } from "../_types/TaskItemProps";
 
-type TaskItemProps = {
-    task: Task;
-    onEdit: (task: Task) => void;
-    onDelete: (task: Task) => void;
-    onMoveTask: (task: Task, newStatus: string) => void;
-    columnTitle: string;
-    allColumns: string[];
-};
 
 const TaskItem: React.FC<TaskItemProps> = ({
     task,
