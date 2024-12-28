@@ -1,5 +1,4 @@
-"use client";
-// import type { Metadata } from "next";
+import type { Metadata } from "next";
 import "./globals.css";
 import Header from "./_components/Header";
 import Sidebar from "./_components/Sidebar";
@@ -9,13 +8,12 @@ import Sidebar from "./_components/Sidebar";
 
 // Note: I didn't add a favicon for the lack of time. Adding a favicon enhances branding and user experience.
 
-// export const metadata: Metadata = {
-//   title: "Task Management App",
-//   description: "A task management application to help you organize and manage your tasks efficiently.",
-//   viewport: "width=device-width, initial-scale=1.0",
-//   robots: "index, follow",
-//   applicationName: "Task Management App",
-// };
+export const metadata: Metadata = {
+  title: "Task Management App",
+  description: "A task management application to help you organize and manage your tasks efficiently.",
+  robots: "index, follow",
+  applicationName: "Task Management App",
+};
 
 export default function RootLayout({
   children,

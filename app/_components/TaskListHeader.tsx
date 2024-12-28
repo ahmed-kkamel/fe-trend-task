@@ -14,7 +14,6 @@ const TaskListHeader: React.FC = React.memo(() => {
     const dispatch = useDispatch();
     const { searchTerm, tasks } = useSelector((state: RootState) => state.tasks);
 
-    // Load tasks and searchTerm from localStorage on mount
     useEffect(() => {
         const savedTasks = getFromLocalStorage("tasks");
         const savedSearchTerm = getFromLocalStorage("searchTerm");
@@ -27,7 +26,6 @@ const TaskListHeader: React.FC = React.memo(() => {
         }
     }, [dispatch]);
 
-    // Save tasks to localStorage whenever tasks state changes
     useEffect(() => {
         saveToLocalStorage("tasks", tasks);
     }, [tasks]);

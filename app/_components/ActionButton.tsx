@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 type ActionButtonProps = {
     onClick: () => void;
@@ -10,11 +10,11 @@ const ActionButton: React.FC<ActionButtonProps> = ({ onClick, label, color }) =>
     return (
         <button
             onClick={onClick}
-            className={`text-${color}-500 hover:text-${color}-700 focus:outline-none`}
+            className={`px-3 py-1.5 text-${color}-600 font-semibold rounded-lg shadow-sm border hover:bg-${color}-800 focus:outline-none `}
             aria-label={label}
         >
             {label}
-        </button>
+        </button >
     );
 };
 
