@@ -3,10 +3,17 @@ import "./globals.css";
 import Header from "./_components/Header";
 import Sidebar from "./_components/Sidebar";
 
+// Note: We can use next/fonts to improve performance by optimizing font loading and reducing layout shifts. 
+// This can lead to faster page loads and a better user experience. However, for the lack of time, I didn't use it.
+
+// Note: I didn't add a favicon for the lack of time. Adding a favicon enhances branding and user experience.
 
 export const metadata: Metadata = {
   title: "Task Management App",
   description: "A task management application to help you organize and manage your tasks efficiently.",
+  viewport: "width=device-width, initial-scale=1.0",
+  robots: "index, follow",
+  applicationName: "Task Management App",
 };
 
 export default function RootLayout({

@@ -3,7 +3,7 @@ import { AddTaskPopupProps } from "../_types/AddTaskPopupProps";
 import { Task } from "../_types/task";
 
 type Props = AddTaskPopupProps & {
-    taskToEdit?: Task | null; // Task to edit, if any
+    taskToEdit?: Task | null;
 };
 
 const AddTaskPopup: React.FC<Props> = ({ isOpen, onClose, onSave, taskToEdit }) => {
@@ -18,7 +18,6 @@ const AddTaskPopup: React.FC<Props> = ({ isOpen, onClose, onSave, taskToEdit }) 
         description: "",
     });
 
-    // Populate fields if taskToEdit is provided
     useEffect(() => {
         if (taskToEdit) {
             setFormData({
@@ -27,7 +26,7 @@ const AddTaskPopup: React.FC<Props> = ({ isOpen, onClose, onSave, taskToEdit }) 
                 status: taskToEdit.status,
             });
         } else {
-            resetForm(); // Reset if taskToEdit is null
+            resetForm();
         }
     }, [taskToEdit]);
 

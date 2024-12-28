@@ -1,3 +1,9 @@
+/**
+ * Note: For small-scale applications like this, using the Context API might be a simpler and more appropriate choice.
+ * The Context API provides a straightforward way to manage state without the need for additional libraries like Redux.
+ * However, Redux is used here to demonstrate a more scalable state management solution that can handle more complex scenarios.
+ */
+
 import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Task } from "../_types/task";
 import {
