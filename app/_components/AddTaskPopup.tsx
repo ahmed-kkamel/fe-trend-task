@@ -66,7 +66,7 @@ const AddTaskPopup: React.FC<AddTaskPopupProps> = ({ isOpen, onClose, onSave }) 
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-[#606C80] bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm">
             <div className="bg-white rounded-xl p-6 w-full max-w-lg shadow-lg">
                 <h2 className="text-base md:text-2xl font-semibold mb-6 text-gray-800">Create a New Task</h2>
                 <form className="flex flex-col gap-6">
