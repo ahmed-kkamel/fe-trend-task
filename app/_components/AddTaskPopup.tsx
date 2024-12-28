@@ -1,7 +1,12 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { AddTaskPopupProps } from "../_types/AddTaskPopupProps";
+import { Task } from "../_types/task";
 
-const AddTaskPopup: React.FC<AddTaskPopupProps> = ({ isOpen, onClose, onSave }) => {
+type Props = AddTaskPopupProps & {
+    taskToEdit?: Task | null; // Task to edit, if any
+};
+
+const AddTaskPopup: React.FC<Props> = ({ isOpen, onClose, onSave, taskToEdit }) => {
     const [formData, setFormData] = useState({
         title: "",
         description: "",
@@ -12,6 +17,19 @@ const AddTaskPopup: React.FC<AddTaskPopupProps> = ({ isOpen, onClose, onSave }) 
         title: "",
         description: "",
     });
+
+    // Populate fields if taskToEdit is provided
+    useEffect(() => {
+        if (taskToEdit) {
+            setFormData({
+                title: taskToEdit.title,
+                description: taskToEdit.description,
+                status: taskToEdit.status,
+            });
+        } else {
+            resetForm(); // Reset if taskToEdit is null
+        }
+    }, [taskToEdit]);
 
     const resetForm = useCallback(() => {
         setFormData({
@@ -68,7 +86,9 @@ const AddTaskPopup: React.FC<AddTaskPopupProps> = ({ isOpen, onClose, onSave }) 
     return (
         <div className="fixed inset-0 bg-[#606C80] bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm">
             <div className="bg-white rounded-xl p-6 w-full max-w-lg shadow-lg">
-                <h2 className="text-base md:text-2xl font-semibold mb-6 text-gray-800">Create a New Task</h2>
+                <h2 className="text-base md:text-2xl font-semibold mb-6 text-gray-800">
+                    {taskToEdit ? "Edit Task" : "Create a New Task"}
+                </h2>
                 <form className="flex flex-col gap-6">
                     <div>
                         <label
@@ -138,7 +158,7 @@ const AddTaskPopup: React.FC<AddTaskPopupProps> = ({ isOpen, onClose, onSave }) 
                         className="px-5 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700"
                         onClick={handleSave}
                     >
-                        Save Task
+                        {taskToEdit ? "Save Changes" : "Create Task"}
                     </button>
                 </div>
             </div>

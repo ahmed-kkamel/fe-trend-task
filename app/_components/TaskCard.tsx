@@ -45,6 +45,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ column }) => {
                         dispatch(editTask({ ...editingTask, title, description, status }));
                         setIsEditing(false);
                     }}
+                    taskToEdit={editingTask}
                 />
             )}
 
